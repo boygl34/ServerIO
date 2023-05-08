@@ -17,10 +17,15 @@ io.on('connection', async (socket) => {
 console.log('Client connected', socket.id);
 
     socket.on('login', async (data) => {
-            let user = { name: data.name, id: socket.id }
-            db.get('Login').push(user).write()
-            io.to(`${ socket.id}`).emit('login', socket.id);     
-            io.to(`${ socket.id}`).emit('sendData', db.get('XeTrongXuong').value());      
+            let  User = await db.get('User').find({ user: data.user, password: data.password}).value();
+            if(User){
+            let loginuse = {id: socket.id,fullname:User.fullname,job:User.job}
+            await db.get("Login").push(loginuse).write()   
+            io.to(`${ socket.id}`).emit('login', `WellCome ${User.fullname}`);     
+            io.to(`${ socket.id}`).emit('sendData', db.get('XeTrongXuong').value());}
+             else   {
+                io.to(`${ socket.id}`).emit('error', "Sai Thông Tin Đăng Ngập"); 
+             }  
     });
     socket.on("disconnect", async () => {
         try{
@@ -41,7 +46,6 @@ console.log('Client connected', socket.id);
             io.emit('sendData', db.get(data.path).value()); 
         }
         catch(error){
-            console.log(error);
             io.to(`${ socket.id}`).emit('error', {message:"Không Thể Đăng Ký"}); 
         }
     });
