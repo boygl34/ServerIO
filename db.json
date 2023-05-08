@@ -1,5 +1,26 @@
 {
-  "Login": [],
+  "Login": [
+    {
+      "id": "WFwFMnUM_o51lVsEAAAD",
+      "fullname": "Võ Chính Trực",
+      "job": "manager"
+    },
+    {
+      "id": "uKLG_uEOBa8u2rPAAAAB",
+      "fullname": "Võ Chính Trực",
+      "job": "manager"
+    }
+  ],
+  "User": [
+    {
+      "id": 1,
+      "user": "Boygl34",
+      "password": "Khongbiet",
+      "job": "manager",
+      "name": "Trực",
+      "fullname": "Võ Chính Trực"
+    }
+  ],
   "XeTrongXuong": [],
   "XeDaGiao": []
 }
