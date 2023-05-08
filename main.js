@@ -13,40 +13,44 @@ const db = low(adapter)
 
 
 io.on('connection', async (socket) => {
- 
-console.log('Client connected', socket.id);
+
+    console.log('Client connected', socket.id);
 
     socket.on('login', async (data) => {
-            let  User = await db.get('User').find({ user: data.user, password: data.password}).value();
-            if(User){
-            let loginuse = {id: socket.id,fullname:User.fullname,job:User.job}
-            await db.get("Login").push(loginuse).write()   
-            io.to(`${ socket.id}`).emit('login', `WellCome ${User.fullname}`);     
-            io.to(`${ socket.id}`).emit('sendData', db.get('XeTrongXuong').value());}
-             else   {
-                io.to(`${ socket.id}`).emit('error', "Sai Thông Tin Đăng Ngập"); 
-             }  
+        let User = await db.get('User').find({ user: data.user, password: data.password }).value();
+        if (User) {
+            let loginuse = { id: socket.id, fullname: User.fullname, job: User.job }
+            await db.get("Login").push(loginuse).write()
+            io.to(`${socket.id}`).emit('login', `WellCome ${User.fullname}`);
+            io.to(`${socket.id}`).emit('sendData', db.get('XeTrongXuong').value());
+        }
+        else {
+            io.to(`${socket.id}`).emit('error', "Sai Thông Tin Đăng Ngập");
+        }
     });
     socket.on("disconnect", async () => {
-        try{
+        try {
             db.get('Login').remove({ id: socket.id }).write()
-            console.log('Client disconnect', socket.id);}
-        catch(error){
+            console.log('Client disconnect', socket.id);
+        }
+        catch (error) {
             console.log("Không tìm thấy ID")
         }
     });
 
     socket.on("dangky", async (data) => {
-        try{
+        try {
+            console.log(data);
             const newId = getLastId(data.path) + 1
-            let  User = await db.get('Login').find({ id: socket.id }).value();
-            if(!data.data.id){data.data.id = newId}
+            let User = await db.get('Login').find({ id: socket.id }).value();
+            if (!data.data.id) { data.data.id = newId }
             data.data.LastUser = User.name
             await db.get(data.path).push(data.data).write()
-            io.emit('sendData', db.get(data.path).value()); 
+            io.emit('sendData', db.get(data.path).value());
+            io.to(`${socket.id}`).emit('login', `ssac`);
         }
-        catch(error){
-            io.to(`${ socket.id}`).emit('error', {message:"Không Thể Đăng Ký"}); 
+        catch (error) {
+            io.to(`${socket.id}`).emit('error', { message: "Không Thể Đăng Ký" });
         }
     });
 
@@ -64,14 +68,14 @@ server.listen(port, () => {
 });
 
 
-  function  getLastId(path) {
-    if (  db.has(path).value()) {
-        let sorted =  db.get(path)
+function getLastId(path) {
+    if (db.has(path).value()) {
+        let sorted = db.get(path)
             .value()
-            .sort( (a, b) => {
+            .sort((a, b) => {
                 return b.id - a.id;
             });
-        
+
         return sorted[0] ? sorted[0].id : 1;
     }
     return 1;
