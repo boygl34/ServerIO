@@ -1,48 +1,5 @@
 {
   "Login": [],
-  "XeTrongXuong": [
-    {
-      "Biển Số Xe": "12324",
-      "Cố Vấn": "trực",
-      "id": 7,
-      "LastUser": "Trưc"
-    },
-    {
-      "Biển Số Xe": "12324",
-      "Cố Vấn": "trực",
-      "id": 6,
-      "LastUser": "Trưc"
-    },
-    {
-      "Biển Số Xe": "12324",
-      "Cố Vấn": "trực",
-      "id": 5,
-      "LastUser": "Trưc"
-    },
-    {
-      "Biển Số Xe": "12324",
-      "Cố Vấn": "trực",
-      "id": 4,
-      "LastUser": "Trưc"
-    },
-    {
-      "Biển Số Xe": "12324",
-      "Cố Vấn": "trực",
-      "id": 3,
-      "LastUser": "Trưc"
-    },
-    {
-      "Biển Số Xe": "12324",
-      "Cố Vấn": "trực",
-      "id": 2,
-      "LastUser": "Trưc"
-    },
-    {
-      "Biển Số Xe": "12324",
-      "Cố Vấn": "trực",
-      "id": 8,
-      "LastUser": "Trưc"
-    }
-  ],
+  "XeTrongXuong": [],
   "XeDaGiao": []
 }
