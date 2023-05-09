@@ -21,7 +21,7 @@ io.on('connection', async (socket) => {
         if (User) {
             let loginuse = { id: socket.id, fullname: User.fullname, job: User.job }
             await db.get("Login").push(loginuse).write()
-            io.to(`${socket.id}`).emit('login', `WellCome ${User.fullname}`);
+            io.to(`${socket.id}`).emit('DangNhap', User.fullname);
             io.to(`${socket.id}`).emit('sendData', db.get('XeTrongXuong').value());
         }
         else {
@@ -40,19 +40,29 @@ io.on('connection', async (socket) => {
 
     socket.on("dangky", async (data) => {
         try {
-            console.log(data);
-            const newId = getLastId(data.path) + 1
             let User = await db.get('Login').find({ id: socket.id }).value();
-            if (!data.data.id) { data.data.id = newId }
-            data.data.LastUser = User.name
-            await db.get(data.path).push(data.data).write()
-            io.emit('sendData', db.get(data.path).value());
-            io.to(`${socket.id}`).emit('login', `ssac`);
+            if (User) {
+                const newId = getLastId(data.path) + 1
+                let iddata = await db.get(data.path).find({ id: data.data.id }).value()
+                if (!iddata) {
+                    if (!data.data.id) { data.data.id = newId }
+                    data.data.LastUser = User.fullname
+                    db.get(data.path).push(data.data).write()
+                    io.emit('sendData', db.get(data.path).value());
+                    io.to(`${socket.id}`).emit('thanhcong', `Đã Đăng Ký${data.data['Biển Số Xe']}`);
+                } else {
+                    io.to(`${socket.id}`).emit('error', { message: "Xe Đã Đăng Ký" });
+                }
+            } else {
+                io.to(`${socket.id}`).emit('error', { message: "Bạn Chưa Đăng Nhập" });
+            }
         }
         catch (error) {
             io.to(`${socket.id}`).emit('error', { message: "Không Thể Đăng Ký" });
         }
     });
+
+
 
 
 });
