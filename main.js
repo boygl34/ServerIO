@@ -13,9 +13,7 @@ const db = low(adapter)
 
 
 io.on('connection', async (socket) => {
-
     console.log('Client connected', socket.id);
-
     socket.on('login', async (data) => {
         let User = await db.get('User').find({ user: data.user, password: data.password }).value();
         if (User) {
@@ -25,7 +23,7 @@ io.on('connection', async (socket) => {
             io.to(`${socket.id}`).emit('sendData', db.get('XeTrongXuong').value());
         }
         else {
-            io.to(`${socket.id}`).emit('error', "Sai Thông Tin Đăng Ngập");
+            io.to(`${socket.id}`).emit('error', { message: "Sai thông tin đăng nhập" });
         }
     });
     socket.on("disconnect", async () => {
@@ -49,7 +47,7 @@ io.on('connection', async (socket) => {
                     data.data.LastUser = User.fullname
                     db.get(data.path).push(data.data).write()
                     io.emit('sendData', db.get(data.path).value());
-                    io.to(`${socket.id}`).emit('thanhcong', `Đã Đăng Ký${data.data['Biển Số Xe']}`);
+                    io.to(`${socket.id}`).emit('thanhcong', `Đã Đăng Ký ${data.data['Biển Số Xe']}`);
                 } else {
                     io.to(`${socket.id}`).emit('error', { message: "Xe Đã Đăng Ký" });
                 }
@@ -61,6 +59,24 @@ io.on('connection', async (socket) => {
             io.to(`${socket.id}`).emit('error', { message: "Không Thể Đăng Ký" });
         }
     });
+    socket.on('capnhat', async (data) => {
+        try {
+            if (!db.has(data.path).value()) {
+                io.to(`${socket.id}`).emit('error', { message: "Không Tìm Thấy Thông Tin" });
+            }
+            let User = await db.get('Login').find({ id: socket.id }).value();
+            if (User) {
+                data.data.LastUser = User.fullnames
+                await db.get(data.path).find({ id: data.id }).assign(data.data).write();
+                io.emit('sendData', db.get(data.path).value());
+                io.to(`${socket.id}`).emit('thanhcong', `Đã cập nhật ${data.data['Biển Số Xe']}`);
+            } else {
+                io.to(`${socket.id}`).emit('error', { message: "Bạn Chưa Đăng Nhập" });
+            }
+        } catch (error) {
+            io.to(`${socket.id}`).emit('error', { message: "Không Thể Cập Nhật" });
+        }
+    })
 
 
 
