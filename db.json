@@ -1,7 +1,11 @@
 {
   "Login": [
     {
+<<<<<<< HEAD
       "id": "L8vVKTNkAkeqk6cRAABl",
+=======
+      "id": "5EQAdtLQCrRyVXaLAAAG",
+>>>>>>> cb095de (ađ)
       "fullname": "Võ Chính Trực",
       "job": "manager"
     }
@@ -18,18 +22,46 @@
   ],
   "XeTrongXuong": [
     {
+<<<<<<< HEAD
       "Biển Số Xe": "72A12345",
       "Cố Vấn": "Mẫn",
       "Ngày Giờ Hẹn": "2023-05-10 12:06",
+=======
+      "Biển Số Xe": "72A19865",
+      "Cố Vấn": "Rôn",
+      "Ngày Giờ Hẹn": "2023-05-13 20:04",
+>>>>>>> cb095de (ađ)
       "Khoang Hẹn": "EM 01",
       "Loại Hình SCC": "EM",
       "Loại Hình BP": "",
       "Số ĐT": "123",
       "Tên KH": "123",
       "Khu Vực": "Vũng Tàu",
+<<<<<<< HEAD
       "Nội Dung Hẹn": "",
       "id": "72A12345",
       "Trạng Thái Xưởng": "00 Có Hẹn"
+=======
+      "Nội Dung Hẹn": "123123",
+      "id": "72A19865",
+      "Trạng Thái Xưởng": "00 Có Hẹn",
+      "LastUser": "Võ Chính Trực"
+    },
+    {
+      "Biển Số Xe": "123123",
+      "Cố Vấn": "Mẫn",
+      "Ngày Giờ Hẹn": "2023-05-13 20:59",
+      "Khoang Hẹn": "EM 01",
+      "Loại Hình SCC": "EM",
+      "Loại Hình BP": "",
+      "Số ĐT": "123",
+      "Tên KH": "123",
+      "Khu Vực": "Vũng Tàu",
+      "Nội Dung Hẹn": "123",
+      "id": "123123",
+      "Trạng Thái Xưởng": "00 Có Hẹn",
+      "LastUser": "Võ Chính Trực"
+>>>>>>> cb095de (ađ)
     }
   ],
   "XeDaGiao": []

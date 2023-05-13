@@ -7,6 +7,7 @@ const io = require('socket.io')(server, {
 })
 const low = require('lowdb')
 const FileSync = require('lowdb/adapters/FileSync')
+const { cachedDataVersionTag } = require('v8')
 const port = 3000
 const adapter = new FileSync('db.json')
 const db = low(adapter)
@@ -19,11 +20,18 @@ io.on('connection', async (socket) => {
         if (User) {
             let loginuse = { id: socket.id, fullname: User.fullname, job: User.job }
             await db.get("Login").push(loginuse).write()
-            io.to(`${socket.id}`).emit('DangNhap', User.fullname);
-            io.to(`${socket.id}`).emit('sendData', db.get('XeTrongXuong').value());
+            readId('XeTrongXuong')
+                .then((data) => {
+                    io.to(`${socket.id}`).emit('DangNhapThanhCong', User.fullname);
+                    io.to(`${socket.id}`).emit('sendData', data);
+                })
         }
         else {
+<<<<<<< HEAD
             io.to(`${socket.id}`).emit('error', { message: "Sai thông tin đăng nhập" });
+=======
+            io.to(`${socket.id}`).emit('KhongKetNoi', "Sai Thông Tin Đăng Ngập");
+>>>>>>> cb095de (ađ)
         }
     });
     socket.on("disconnect", async () => {
@@ -36,28 +44,41 @@ io.on('connection', async (socket) => {
         }
     });
 
-    socket.on("dangky", async (data) => {
-        try {
-            let User = await db.get('Login').find({ id: socket.id }).value();
-            if (User) {
+
+    socket.on("dangkyhen", async (data) => {
+        CheckLogin(socket.id)
+            .then(async (res) => {
                 const newId = getLastId(data.path) + 1
                 let iddata = await db.get(data.path).find({ id: data.data.id }).value()
                 if (!iddata) {
                     if (!data.data.id) { data.data.id = newId }
-                    data.data.LastUser = User.fullname
+                    data.data.LastUser = res.fullname
                     db.get(data.path).push(data.data).write()
                     io.emit('sendData', db.get(data.path).value());
                     io.to(`${socket.id}`).emit('thanhcong', `Đã Đăng Ký ${data.data['Biển Số Xe']}`);
                 } else {
                     io.to(`${socket.id}`).emit('error', { message: "Xe Đã Đăng Ký" });
                 }
-            } else {
-                io.to(`${socket.id}`).emit('error', { message: "Bạn Chưa Đăng Nhập" });
-            }
-        }
-        catch (error) {
-            io.to(`${socket.id}`).emit('error', { message: "Không Thể Đăng Ký" });
-        }
+            })
+            .catch((error) => {
+                io.to(`${socket.id}`).emit('error', error);
+                console.log(error);
+            })
+    });
+    socket.on("capnhathen", async (data) => {
+        CheckLogin(socket.id)
+            .then(async (res) => {
+                data.data.LastUser = res.fullname
+                updateId(data.path, data.data.id, data.data)
+                    .then((resdata) => {
+                        io.emit('sendData', db.get(data.path).value());
+                        io.to(`${socket.id}`).emit('thanhcong', `Đã cập nhật ${data.data['Biển Số Xe']}`);
+                    })
+            })
+            .catch((error) => {
+                io.to(`${socket.id}`).emit('error', error);
+                console.log(error);
+            })
     });
     socket.on('capnhat', async (data) => {
         try {
@@ -80,12 +101,7 @@ io.on('connection', async (socket) => {
 
 
 
-
-});
-
-
-
-
+})
 
 server.listen(port, () => {
     console.log(db.data);
@@ -105,4 +121,63 @@ function getLastId(path) {
         return sorted[0] ? sorted[0].id : 1;
     }
     return 1;
-} 
+}
+async function CheckLogin(user) {
+    return new Promise(async (resolve, reject) => {
+        let User = await db.get('Login').find({ id: user }).value();
+        resolve(User)
+        reject({ message: "Lỗi Không Thấy User" })
+    })
+}
+function readId(path, id = null) {
+    return new Promise((resolve, reject) => {
+        let result = [];
+
+        if (!db.has(path).value()) {
+            return reject('Collection is not exists!');
+        }
+
+        if (!id) {
+            result = db.get(path)
+                .value()
+                .sort((a, b) => a.id - b.id);
+        } else {
+            result = db.get(path)
+                .find({ id: id })
+                .value();
+        }
+
+        resolve(result);
+    });
+}
+function createId(path, data) {
+    return new Promise((resolve, reject) => {
+        if (!db.has(path).value()) {
+            return reject('Collection is not exists!');
+        }
+        db.get(path).push(data).write()
+        const newObject = db.get(path).find({ id: data, id }).value();
+        resolve(newObject);
+    });
+}
+
+function updateId(path, id, data) {
+    return new Promise((resolve, reject) => {
+        if (!db.has(path).value()) {
+            return reject('Collection is not exists!');
+        }
+        db.get(path).find({ id: id }).assign(data).write();
+        const refreshedObject = db.get(path).find({ id: id }).value();
+        resolve(refreshedObject);
+    });
+}
+function deleteId(path, id = null) {
+    return new Promise((resolve, reject) => {
+        if (!db.has(path).value()) {
+            return reject('Collection is not exists!');
+        }
+        if (!id) { return reject('ID not provided!'); }
+        db.get(path).remove({ id: id }).write();
+        resolve({ command: 'delete', id: id });
+    });
+}
