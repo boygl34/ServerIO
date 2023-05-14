@@ -11,7 +11,7 @@ const { cachedDataVersionTag } = require('v8')
 const port = 3000
 const adapter = new FileSync('db.json')
 const db = low(adapter)
-
+db.defaults({ Login: [], User: [], XeTrongXuong: [], XeDaGiao: [] }).write();
 
 io.on('connection', async (socket) => {
     console.log('Client connected', socket.id);
@@ -53,6 +53,10 @@ io.on('connection', async (socket) => {
                     db.get(data.path).push(data.data).write()
                     io.emit('sendData', db.get(data.path).value());
                     io.to(`${socket.id}`).emit('thanhcong', `Đã Đăng Ký ${data.data['Biển Số Xe']}`);
+                    let sendDT = getSockid("Đặt Hẹn")
+                    sendDT.forEach(element => {
+                        io.to(`${element.id}`).emit('DangKyMoi', { message: "Đăng Ký Xe", user: res.fullname, XeDangKy: data.data['Biển Số Xe'] });
+                    });
                 } else {
                     io.to(`${socket.id}`).emit('error', { message: "Xe Đã Đăng Ký" });
                 }
@@ -63,6 +67,7 @@ io.on('connection', async (socket) => {
             })
     });
     socket.on("capnhathen", async (data) => {
+
         CheckLogin(socket.id)
             .then(async (res) => {
                 data.data.LastUser = res.fullname
@@ -78,16 +83,36 @@ io.on('connection', async (socket) => {
             })
     });
 
+    socket.on("dangkyletan", async (data) => {
+        CheckLogin(socket.id)
+            .then(async (res) => {
+                data.data.LastUser = res.fullname;
+                data.data["TĐ Gặp Lễ Tân"] = Date.now()
+                updateId(data.path, data.data.id, data.data)
+                    .then((resdata) => {
+                        io.emit('sendData', db.get(data.path).value());
+                        io.to(`${socket.id}`).emit('thanhcong', `Đã Đăng Ký LT ${data.data['Biển Số Xe']}`);
+                    })
+            })
+            .catch((error) => {
+                io.to(`${socket.id}`).emit('error', error);
+                console.log(error);
+            })
+    });
+
 
 });//io
 
 server.listen(port, () => {
-    console.log(db.data);
     console.log(`Server listening on port ${port}`);
 
 });
 
-
+function getSockid(Job) {
+    var dbjob = db.get('Login').value()
+    dbjob = dbjob.filter((r) => { return r.job == Job })
+    return dbjob
+}
 function getLastId(path) {
     if (db.has(path).value()) {
         let sorted = db.get(path)
