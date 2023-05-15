@@ -57,8 +57,8 @@ io.on('connection', async (socket) => {
                     io.to(`${socket.id}`).emit('thanhcong', `Đã Đăng Ký ${data.data['Biển Số Xe']}`);
                     let sendDT = getSockid("Đặt Hẹn");
                     sendDT.forEach(element => {
-                        if(element.id!=socket.id){
-                        io.to(`${element.id}`).emit('DangKyMoi', { message: "Đăng Ký Xe", user: res.fullname, XeDangKy: data.data['Biển Số Xe'] });
+                        if (element.id != socket.id) {
+                            io.to(`${element.id}`).emit('DangKyMoi', { message: "Đăng Ký Xe", user: res.fullname, XeDangKy: data.data['Biển Số Xe'] });
                         }
                     });
                 } else {
@@ -92,10 +92,34 @@ io.on('connection', async (socket) => {
             .then(async (res) => {
                 data.data.LastUser = res.fullname;
                 data.data["TĐ Gặp Lễ Tân"] = moment().format("YYYY-MM-DD HH:mm")
+                data.data["Trạng Thái Xưởng"] = "02 Chờ Tiếp Nhận";
+                let findata = db.get(data.path).find({ id: data.data.id }).value()
+                if(findata){
+                    await  db.get(data.path).find({ id: data.data.id }).assign(data.data).write();
+                    let res = await db.get(data.path).find({ id: data.data.id }).value()
+                     io.emit('sendData', db.get(data.path).value());
+                     io.to(`${socket.id}`).emit('thanhcong', `Đã Đăng Ký LT ${res['Biển Số Xe']}`);
+                }else{
+                    db.get(data.path).push(data.data).write();
+                    let res = await db.get(data.path).find({ id: data.data.id }).value()
+                    io.emit('sendData', db.get(data.path).value());
+                    io.to(`${socket.id}`).emit('thanhcong', `Đã Đăng Ký LT ${res['Biển Số Xe']}`);
+                }
+            })
+            .catch((error) => {
+                io.to(`${socket.id}`).emit('error', error);
+                console.log(error);
+            })
+    });
+    socket.on("capnhatletan", async (data) => {
+        CheckLogin(socket.id)
+            .then(async (res) => {
+                data.data.LastUser = res.fullname;
                 updateId(data.path, data.data.id, data.data)
                     .then((resdata) => {
+                        console.log(resdata);
                         io.emit('sendData', db.get(data.path).value());
-                        io.to(`${socket.id}`).emit('thanhcong', `Đã Đăng Ký LT ${resdata['Biển Số Xe']}`);
+                        io.to(`${socket.id}`).emit('thanhcong', `Đã Đăng Ký LT ${data.data['Biển Số Xe']}`);
                     })
             })
             .catch((error) => {
@@ -158,33 +182,40 @@ function readId(path, id = null) {
     });
 }
 function createId(path, data) {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
         if (!db.has(path).value()) {
             return reject('Collection is not exists!');
         }
-        db.get(path).push(data).write()
+        await db.get(path).push(data).write()
         const newObject = db.get(path).find({ id: data, id }).value();
         resolve(newObject);
     });
 }
 
 function updateId(path, id, data) {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
         if (!db.has(path).value()) {
             return reject('Collection is not exists!');
         }
-        db.get(path).find({ id: id }).assign(data).write();
+        console.log(data)
+        await db.get(path).find({ id: id }).assign(data).write();
         const refreshedObject = db.get(path).find({ id: id }).value();
+        if (!refreshedObject) {
+            createId(path, data).then(res => {
+                resolve(res);
+            })
+        }
+        console.log(refreshedObject);
         resolve(refreshedObject);
     });
 }
 function deleteId(path, id = null) {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
         if (!db.has(path).value()) {
             return reject('Collection is not exists!');
         }
         if (!id) { return reject('ID not provided!'); }
-        db.get(path).remove({ id: id }).write();
+        await db.get(path).remove({ id: id }).write();
         resolve({ command: 'delete', id: id });
     });
 }
