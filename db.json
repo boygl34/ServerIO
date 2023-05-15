@@ -1,16 +1,7 @@
 {
-  "Login": [
-    {
-      "id": "YldsC7zXYipitgIgAAAL",
-      "fullname": "Võ Chính Trực",
-      "job": "manager"
-    },
-    {
-      "id": "BS_6ngHCHkRzLR-cAAAM",
-      "fullname": "Võ Chính Trực",
-      "job": "manager"
-    }
-  ],
+  "XeTrongXuong": [],
+  "XeDaGiao": [],
+  "Login": [],
   "User": [
     {
       "id": 1,
@@ -28,25 +19,5 @@
       "name": "Hẹn",
       "fullname": "Nhân Viên Hẹn"
     }
-  ],
-  "XeTrongXuong": [
-    {
-      "Biển Số Xe": "72A98911",
-      "Cố Vấn": "Toàn",
-      "Ngày Giờ Hẹn": "2023-05-15 16:30",
-      "Khoang Hẹn": "EM 01",
-      "Loại Hình Hẹn SCC": "EM",
-      "Loại Hình Hẹn BP": "Đồng Sơn",
-      "Số ĐT": "1231",
-      "Tên KH": "3",
-      "Khu Vực": "Vũng Tàu",
-      "Nội Dung Hẹn": "",
-      "id": "72A98911",
-      "Trạng Thái Xưởng": "00 Có Hẹn",
-      "Nhân Viên Hẹn": "Võ Chính Trực",
-      "LastUser": "Võ Chính Trực",
-      "TĐ Đặt Hẹn": "2023-05-15 16:08"
-    }
-  ],
-  "XeDaGiao": []
+  ]
 }
