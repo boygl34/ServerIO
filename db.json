@@ -1,5 +1,16 @@
 {
-  "Login": [],
+  "Login": [
+    {
+      "id": "YldsC7zXYipitgIgAAAL",
+      "fullname": "Võ Chính Trực",
+      "job": "manager"
+    },
+    {
+      "id": "BS_6ngHCHkRzLR-cAAAM",
+      "fullname": "Võ Chính Trực",
+      "job": "manager"
+    }
+  ],
   "User": [
     {
       "id": 1,
@@ -20,79 +31,21 @@
   ],
   "XeTrongXuong": [
     {
-      "Biển Số Xe": "72S9898",
-      "Cố Vấn": "Mẫn",
-      "Ngày Giờ Hẹn": "2023-05-14 17:30",
+      "Biển Số Xe": "72A98911",
+      "Cố Vấn": "Toàn",
+      "Ngày Giờ Hẹn": "2023-05-15 16:30",
       "Khoang Hẹn": "EM 01",
-      "Loại Hình SCC": "EM",
-      "Loại Hình BP": "Đồng Sơn",
-      "Số ĐT": "12",
-      "Tên KH": "213",
+      "Loại Hình Hẹn SCC": "EM",
+      "Loại Hình Hẹn BP": "Đồng Sơn",
+      "Số ĐT": "1231",
+      "Tên KH": "3",
       "Khu Vực": "Vũng Tàu",
       "Nội Dung Hẹn": "",
-      "id": "72S9898",
+      "id": "72A98911",
       "Trạng Thái Xưởng": "00 Có Hẹn",
-      "LastUser": "Võ Chính Trực"
-    },
-    {
-      "Biển Số Xe": "72A98994",
-      "Cố Vấn": "Toàn",
-      "Ngày Giờ Hẹn": "2023-05-14 18:30",
-      "Khoang Hẹn": "EM 01",
-      "Loại Hình SCC": "EM",
-      "Loại Hình BP": "",
-      "Số ĐT": "1212",
-      "Tên KH": "12",
-      "Khu Vực": "Vũng Tàu",
-      "Nội Dung Hẹn": "12",
-      "id": "72A98994",
-      "Trạng Thái Xưởng": "00 Có Hẹn",
-      "LastUser": "Nhân Viên Hẹn"
-    },
-    {
-      "Biển Số Xe": "72a12989",
-      "Cố Vấn": "Toàn",
-      "Ngày Giờ Hẹn": "2023-05-14 18:00",
-      "Khoang Hẹn": "EM 01",
-      "Loại Hình SCC": "EM",
-      "Loại Hình BP": "Đồng Sơn",
-      "Số ĐT": "21212",
-      "Tên KH": "iip",
-      "Khu Vực": "Vũng Tàu",
-      "Nội Dung Hẹn": "21212",
-      "id": "72a12989",
-      "Trạng Thái Xưởng": "00 Có Hẹn",
-      "LastUser": "Võ Chính Trực"
-    },
-    {
-      "Biển Số Xe": "72A98989",
-      "Cố Vấn": "Vinh",
-      "Ngày Giờ Hẹn": "2023-05-14 18:30",
-      "Khoang Hẹn": "SCC 01",
-      "Loại Hình SCC": "SCC",
-      "Loại Hình BP": "",
-      "Số ĐT": "123",
-      "Tên KH": "123",
-      "Khu Vực": "Vũng Tàu",
-      "Nội Dung Hẹn": "123",
-      "id": "72A98989",
-      "Trạng Thái Xưởng": "00 Có Hẹn",
-      "LastUser": "Võ Chính Trực"
-    },
-    {
-      "Biển Số Xe": "455664",
-      "Cố Vấn": "Vinh",
-      "Ngày Giờ Hẹn": "2023-05-14 19:30",
-      "Khoang Hẹn": "SCC 01",
-      "Loại Hình SCC": "SCC",
-      "Loại Hình BP": "",
-      "Số ĐT": "12545",
-      "Tên KH": "211212",
-      "Khu Vực": "Vũng Tàu",
-      "Nội Dung Hẹn": "",
-      "id": "455664",
-      "Trạng Thái Xưởng": "00 Có Hẹn",
-      "LastUser": "Nhân Viên Hẹn"
+      "Nhân Viên Hẹn": "Võ Chính Trực",
+      "LastUser": "Võ Chính Trực",
+      "TĐ Đặt Hẹn": "2023-05-15 16:08"
     }
   ],
   "XeDaGiao": []

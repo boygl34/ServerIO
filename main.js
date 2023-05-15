@@ -2,12 +2,12 @@ const express = require('express')
 const app = express()
 const http = require('http')
 const server = http.createServer(app)
+const moment = require('moment')
 const io = require('socket.io')(server, {
     cors: { origin: '*' }
 })
 const low = require('lowdb')
 const FileSync = require('lowdb/adapters/FileSync')
-const { cachedDataVersionTag } = require('v8')
 const port = 3000
 const adapter = new FileSync('db.json')
 const db = low(adapter)
@@ -19,6 +19,7 @@ io.on('connection', async (socket) => {
         let User = await db.get('User').find({ user: data.user, password: data.password }).value();
         if (User) {
             let loginuse = { id: socket.id, fullname: User.fullname, job: User.job }
+            console.log(`${User.fullname} Đã Đăng Nhập`);
             await db.get("Login").push(loginuse).write()
             readId('XeTrongXuong')
                 .then((data) => {
@@ -40,8 +41,6 @@ io.on('connection', async (socket) => {
             console.log("Không tìm thấy ID")
         }
     });
-
-
     socket.on("dangkyhen", async (data) => {
         CheckLogin(socket.id)
             .then(async (res) => {
@@ -49,13 +48,17 @@ io.on('connection', async (socket) => {
                 let iddata = await db.get(data.path).find({ id: data.data.id }).value()
                 if (!iddata) {
                     if (!data.data.id) { data.data.id = newId }
+                    data.data['Nhân Viên Hẹn'] = res.fullname
                     data.data.LastUser = res.fullname
+                    data.data["TĐ Đặt Hẹn"] = moment().format("YYYY-MM-DD HH:mm")
                     db.get(data.path).push(data.data).write()
                     io.emit('sendData', db.get(data.path).value());
                     io.to(`${socket.id}`).emit('thanhcong', `Đã Đăng Ký ${data.data['Biển Số Xe']}`);
                     let sendDT = getSockid("Đặt Hẹn")
                     sendDT.forEach(element => {
+                        if(element.id!=socket.id){
                         io.to(`${element.id}`).emit('DangKyMoi', { message: "Đăng Ký Xe", user: res.fullname, XeDangKy: data.data['Biển Số Xe'] });
+                        }
                     });
                 } else {
                     io.to(`${socket.id}`).emit('error', { message: "Xe Đã Đăng Ký" });
@@ -66,8 +69,8 @@ io.on('connection', async (socket) => {
                 console.log(error);
             })
     });
-    socket.on("capnhathen", async (data) => {
 
+    socket.on("capnhathen", async (data) => {
         CheckLogin(socket.id)
             .then(async (res) => {
                 data.data.LastUser = res.fullname
@@ -87,11 +90,11 @@ io.on('connection', async (socket) => {
         CheckLogin(socket.id)
             .then(async (res) => {
                 data.data.LastUser = res.fullname;
-                data.data["TĐ Gặp Lễ Tân"] = Date.now()
+                data.data["TĐ Gặp Lễ Tân"] = moment().format("YYYY-MM-DD HH:mm")
                 updateId(data.path, data.data.id, data.data)
                     .then((resdata) => {
                         io.emit('sendData', db.get(data.path).value());
-                        io.to(`${socket.id}`).emit('thanhcong', `Đã Đăng Ký LT ${data.data['Biển Số Xe']}`);
+                        io.to(`${socket.id}`).emit('thanhcong', `Đã Đăng Ký LT ${resdata['Biển Số Xe']}`);
                     })
             })
             .catch((error) => {
