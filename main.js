@@ -45,16 +45,17 @@ io.on('connection', async (socket) => {
         CheckLogin(socket.id)
             .then(async (res) => {
                 const newId = getLastId(data.path) + 1
-                let iddata = await db.get(data.path).find({ id: data.data.id }).value()
+                let iddata = await db.get(data.path).find({ id: data.data.id }).value();
                 if (!iddata) {
                     if (!data.data.id) { data.data.id = newId }
-                    data.data['Nhân Viên Hẹn'] = res.fullname
-                    data.data.LastUser = res.fullname
-                    data.data["TĐ Đặt Hẹn"] = moment().format("YYYY-MM-DD HH:mm")
-                    db.get(data.path).push(data.data).write()
+                    data.data['Nhân Viên Hẹn'] = res.fullname;
+                    data.data.LastUser = res.fullname;
+                    data.data["TĐ Đặt Hẹn"] = moment().format("YYYY-MM-DD HH:mm");
+                    data.data["Khách Hẹn"] = true;
+                    db.get(data.path).push(data.data).write();
                     io.emit('sendData', db.get(data.path).value());
                     io.to(`${socket.id}`).emit('thanhcong', `Đã Đăng Ký ${data.data['Biển Số Xe']}`);
-                    let sendDT = getSockid("Đặt Hẹn")
+                    let sendDT = getSockid("Đặt Hẹn");
                     sendDT.forEach(element => {
                         if(element.id!=socket.id){
                         io.to(`${element.id}`).emit('DangKyMoi', { message: "Đăng Ký Xe", user: res.fullname, XeDangKy: data.data['Biển Số Xe'] });
