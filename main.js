@@ -11,7 +11,7 @@ const FileSync = require('lowdb/adapters/FileSync')
 const port = 3000
 const adapter = new FileSync('db.json')
 const db = low(adapter)
-db.defaults({ Login: [], User: [], XeTrongXuong: [], XeDaGiao: [] }).write();
+db.defaults({ Login: [], User: [], XeTrongXuong: [], XeDaGiao: [],ThongTinXe:[] }).write();
 
 io.on('connection', async (socket) => {
     console.log('Client connected', socket.id);
