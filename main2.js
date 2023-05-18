@@ -8,6 +8,7 @@ const io = require('socket.io')(server, {
 })
 const low = require('lowdb')
 const FileSync = require('lowdb/adapters/FileSync')
+const { log } = require('console')
 const port = 3000
 const adapter = new FileSync('db.json')
 const db = low(adapter)
@@ -18,17 +19,16 @@ io.on('connection', async (socket) => {
     socket.on('login', async (data) => {
         let User = await db.get('User').find({ user: data.user, password: data.password }).value();
         if (User) {
-            let loginuse = { id: socket.id, fullname: User.fullname, job: User.job }
+            let loginuse = { id: socket.id, fullname: User.fullname, job: User.job ,name:User.name}
             console.log(`${User.fullname} Đã Đăng Nhập`);
             await db.get("Login").push(loginuse).write()
             readId('XeTrongXuong')
                 .then((data) => {
-                    io.to(`${socket.id}`).emit('DangNhapThanhCong', User.fullname);
+                    io.to(`${socket.id}`).emit('DangNhapThanhCong', loginuse);
                     io.to(`${socket.id}`).emit('sendData', data);
                 })
         }
         else {
-            io.to(`${socket.id}`).emit('error', { message: "Sai thông tin đăng nhập" });
             io.to(`${socket.id}`).emit('KhongKetNoi', "Sai Thông Tin Đăng Ngập");
         }
     });
@@ -46,14 +46,12 @@ io.on('connection', async (socket) => {
             .then(async (res) => {
                 const newId = getLastId(data.path) + 1
                 let iddata = await db.get(data.path).find({ id: data.data.id }).value();
+                console.log(iddata);
                 if (!iddata) {
                     if (!data.data.id) { data.data.id = newId }
-
-                   
-                    await db.get(data.path).push(data.data).assign(LayThongTin(data.data.id)).write();
-
+                    await db.get(data.path).push(Object.assign(data.data,await LayThongTin(data.data.id))).write();
                     io.emit('sendData', db.get(data.path).value());
-                    io.to(`${socket.id}`).emit('thanhcong', `Đã Đăng Ký ${data.data['Biển Số Xe']}`);
+                    io.to(`${socket.id}`).emit('thanhcong', {message:`Đã Đăng Ký ${data.data['Biển Số Xe']}`});
                 } else {
                     io.to(`${socket.id}`).emit('error', { message: "Xe Đã Đăng Ký" });
                 }
@@ -66,11 +64,13 @@ io.on('connection', async (socket) => {
     socket.on("update", async (data) => {
         CheckLogin(socket.id)
             .then(async (res) => {
+                
                 let iddata = await db.get(data.path).find({ id: data.data.id }).value();
+                
                 if (iddata) {
-                    db.get(data.path).find({ id: id }).assign(data).write()
-                    io.emit('sendData', db.get(data.path).value());
-                    io.to(`${socket.id}`).emit('thanhcong', `Đã cập nhật ${data.data['Biển Số Xe']}`);
+                    await db.get(data.path).find({ id: data.data.id }).assign(data.data).write()
+                    io.emit('sendData', await db.get(data.path).value());
+                    io.to(`${socket.id}`).emit('thanhcong',{ message:`Đã cập nhật ${data.data['Biển Số Xe']}`});
                 } else {
                     io.to(`${socket.id}`).emit('error', { message: "Không tìm thấy thông tin" });
                 }
@@ -84,9 +84,9 @@ io.on('connection', async (socket) => {
             .then(async (res) => {
                 let iddata = await db.get(data.path).find({ id: data.data.id }).value();
                 if (iddata) {
-                    db.get(data.path).remove({ id: id }).write();
+                    db.get(data.path).remove({ id: data.data.id }).write();
                     io.emit('sendData', db.get(data.path).value());
-                    io.to(`${socket.id}`).emit('thanhcong', `Đã xoá ${data.data['Biển Số Xe']}`);
+                    io.to(`${socket.id}`).emit('thanhcong', {message:`Đã xoá ${data.data['Biển Số Xe']}`});
                 } else {
                     io.to(`${socket.id}`).emit('error', { message: "Xe Đã Đăng Ký" });
                 }
@@ -97,6 +97,10 @@ io.on('connection', async (socket) => {
     });
     socket.on("read", async (data) => {
         io.to(`${socket.id}`).emit('sendData', db.get(data.path).value());
+    });
+
+    socket.on("message", async (data) => {
+        sendMessage(data.Job,data.Name,data.Message)
     });
 
 
@@ -110,10 +114,12 @@ server.listen(port, () => {
 
 });
 
-function getSockid(Job) {
+function sendMessage(Job,Name,Message) {
     var dbjob = db.get('Login').value()
-    dbjob = dbjob.filter((r) => { return r.job == Job })
-    return dbjob
+    dbjob = dbjob.filter((r) => { return r.job == Job&&r.name == Name })
+     dbjob.forEach(element => {
+        io.to(`${element.id}`).emit('message', Message);
+    });
 }
 function getLastId(path) {
     if (db.has(path).value()) {
@@ -136,7 +142,7 @@ async function CheckLogin(user) {
 }
 async function LayThongTin(bienso) {
     let res=await db.get('ThongTinXe').find({ id: bienso }).value();
-    console.log(res);
+    
     return res
 }
 async function LuuThongTin(data) {

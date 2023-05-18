@@ -1,20 +1,26 @@
 {
   "XeTrongXuong": [
     {
-      "id": "72A12344",
-      "BienSo": "72A12344"
-    },
-    {
+      "Biển Số Xe": "72A12345",
+      "Cố Vấn": "Rôn",
+      "Số Thẻ": "1",
+      "Loại Hình SCC": "EM",
+      "Loại Hình BP": "",
+      "Tên KH": "1213123",
+      "Trạng Thái Xưởng": "02 Chờ Tiếp Nhận",
+      "Trạng Thái Hẹn": "",
+      "TĐ Gặp Lễ Tân": "2023-05-18 14:15",
       "id": "72A12345",
-      "BienSo": "72A12345"
+      "Ngày Đăng Kiểm": "20/12/2023"
     }
   ],
   "XeDaGiao": [],
   "Login": [
     {
-      "id": "kDoTwUy9IznSKIl5AAAR",
-      "fullname": "Nhân Viên Hẹn",
-      "job": "Đặt Hẹn"
+      "id": "iCF6EhQ6OQJw1-qKAABR",
+      "fullname": "Võ Chính Trực",
+      "job": "manager",
+      "name": "Trực"
     }
   ],
   "User": [
@@ -39,6 +45,11 @@
     {
       "id": "72A12345",
       "Ngày Đăng Kiểm": "20/12/2023"
+    },
+    {
+      "id": "72A12346",
+      "Ngày Đăng Kiểm": "20/12/2023",
+      "Ngày Sinh Nhật": "18/05/2023"
     }
   ]
 }
