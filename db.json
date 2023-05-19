@@ -11,13 +11,37 @@
       "Trạng Thái Hẹn": "",
       "TĐ Gặp Lễ Tân": "2023-05-18 14:15",
       "id": "72A12345",
-      "Ngày Đăng Kiểm": "20/12/2023"
+      "Ngày Đăng Kiểm": "20/12/2023",
+      "Bắt Đầu SCC": "2023-05-19 09:15",
+      "Kết Thúc SCC": "2023-05-19 13:20",
+      "Khoang SC": "EM 04 Chờ SC"
+    },
+    {
+      "Biển Số Xe": "72A98966",
+      "Cố Vấn": "Mẫn",
+      "Số Thẻ": "9",
+      "Loại Hình SCC": "EM",
+      "Loại Hình BP": "",
+      "Tên KH": "8898",
+      "Trạng Thái Xưởng": "02 Chờ Tiếp Nhận",
+      "Trạng Thái Hẹn": "",
+      "TĐ Gặp Lễ Tân": "2023-05-19 09:56",
+      "id": "72A98966",
+      "Bắt Đầu SCC": "2023-05-19 07:15",
+      "Kết Thúc SCC": "2023-05-19 09:10",
+      "Khoang SC": "EM 04"
     }
   ],
   "XeDaGiao": [],
   "Login": [
     {
       "id": "iCF6EhQ6OQJw1-qKAABR",
+      "fullname": "Võ Chính Trực",
+      "job": "manager",
+      "name": "Trực"
+    },
+    {
+      "id": "cNY-6R9NT1uogdvPAAIC",
       "fullname": "Võ Chính Trực",
       "job": "manager",
       "name": "Trực"
