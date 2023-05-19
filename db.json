@@ -5,16 +5,23 @@
       "Cố Vấn": "Rôn",
       "Số Thẻ": "1",
       "Loại Hình SCC": "EM",
-      "Loại Hình BP": "",
-      "Tên KH": "1213123",
+      "Loại Hình BP": "Đồng Sơn",
+      "Tên KH": "Anh A",
       "Trạng Thái Xưởng": "02 Chờ Tiếp Nhận",
       "Trạng Thái Hẹn": "",
       "TĐ Gặp Lễ Tân": "2023-05-18 14:15",
       "id": "72A12345",
-      "Ngày Đăng Kiểm": "20/12/2023",
-      "Bắt Đầu SCC": "2023-05-19 09:15",
-      "Kết Thúc SCC": "2023-05-19 13:20",
-      "Khoang SC": "EM 04 Chờ SC"
+      "Ngày Đăng Kiểm": "2023-05-31",
+      "Bắt Đầu SCC": "2023-05-19 07:20",
+      "Kết Thúc SCC": "2023-05-19 15:25",
+      "Khoang SC": "EM 04",
+      "Ngày Giờ Giao Xe": "2023-05-19 21:10",
+      "Nội Dung Hẹn": "",
+      "Ghi Chú": "",
+      "Kiểu Xe": "",
+      "Ngày Sinh Nhật": "",
+      "Rửa Xe": "Không Rửa",
+      "Khách Đợi": "Không Rửa"
     },
     {
       "Biển Số Xe": "72A98966",
@@ -22,29 +29,26 @@
       "Số Thẻ": "9",
       "Loại Hình SCC": "EM",
       "Loại Hình BP": "",
-      "Tên KH": "8898",
+      "Tên KH": "A Trực",
       "Trạng Thái Xưởng": "02 Chờ Tiếp Nhận",
       "Trạng Thái Hẹn": "",
       "TĐ Gặp Lễ Tân": "2023-05-19 09:56",
       "id": "72A98966",
-      "Bắt Đầu SCC": "2023-05-19 07:15",
-      "Kết Thúc SCC": "2023-05-19 09:10",
-      "Khoang SC": "EM 04"
+      "Bắt Đầu SCC": "2023-05-19 10:55",
+      "Kết Thúc SCC": "2023-05-19 14:25",
+      "Khoang SC": "EM 02",
+      "Kiểu Xe": "",
+      "Ngày Giờ Giao Xe": "2023-05-19 21:00",
+      "Ghi Chú": ""
     }
   ],
   "XeDaGiao": [],
   "Login": [
     {
-      "id": "iCF6EhQ6OQJw1-qKAABR",
-      "fullname": "Võ Chính Trực",
-      "job": "manager",
-      "name": "Trực"
-    },
-    {
-      "id": "cNY-6R9NT1uogdvPAAIC",
-      "fullname": "Võ Chính Trực",
-      "job": "manager",
-      "name": "Trực"
+      "id": "rG5nP7HnRq1fi12EAAAV",
+      "fullname": "Nhân Viên Hẹn",
+      "job": "Đặt Hẹn",
+      "name": "Hẹn"
     }
   ],
   "User": [
@@ -68,12 +72,22 @@
   "ThongTinXe": [
     {
       "id": "72A12345",
-      "Ngày Đăng Kiểm": "20/12/2023"
+      "Ngày Đăng Kiểm": "2023-05-31",
+      "Tên KH": "Anh A",
+      "Kiểu Xe": "",
+      "Ngày Sinh Nhật": ""
     },
     {
       "id": "72A12346",
       "Ngày Đăng Kiểm": "20/12/2023",
       "Ngày Sinh Nhật": "18/05/2023"
+    },
+    {
+      "Tên KH": "A Trực",
+      "Kiểu Xe": "",
+      "Ngày Đăng Kiểm": "2023-05-19",
+      "Ngày Sinh Nhật": "",
+      "id": "72A98966"
     }
   ]
 }

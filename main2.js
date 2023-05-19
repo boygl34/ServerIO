@@ -102,6 +102,20 @@ io.on('connection', async (socket) => {
     socket.on("message", async (data) => {
         sendMessage(data.Job,data.Name,data.Message)
     });
+    socket.on("ThongTinKH", async (data) => {
+        let iddata = await db.get("ThongTinXe").find({ id: data.id }).value();
+        let iddata2 = await db.get("XeTrongXuong").find({ id: data.id }).value();
+        if(iddata2){
+            await db.get("XeTrongXuong").find({ id: data.id }).assign(data).write()
+        }
+        if(iddata){
+            await db.get("ThongTinXe").find({ id: data.id }).assign(data).write()
+        }else{ 
+            await db.get('ThongTinXe').push(data).write();
+        }
+       res= await db.get("ThongTinXe").find({ id: data.id }).value();
+       io.to(`${socket.id}`).emit('thanhcong', {message:`Lưu Thông Tin ${res.id}`});
+    });
 
 
 
