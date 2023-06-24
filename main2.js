@@ -19,7 +19,7 @@ io.on('connection', async (socket) => {
     socket.on('login', async (data) => {
         let User = await db.get('User').find({ user: data.user, password: data.password }).value();
         if (User) {
-            let loginuse = { id: socket.id, fullname: User.fullname, job: User.job ,name:User.name}
+            let loginuse = { id: socket.id, fullname: User.fullname, job: User.job ,name:User.name,user: data.user, password: data.password}
             console.log(`${User.fullname} Đã Đăng Nhập`);
             await db.get("Login").push(loginuse).write()
             readId('XeTrongXuong')
