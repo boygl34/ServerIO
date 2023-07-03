@@ -1,131 +1,9 @@
 {
   "XeTrongXuong": [
-    {
-      "Biển Số Xe": "72A12345",
-      "Cố Vấn": "Rôn",
-      "Số Thẻ": "1",
-      "Loại Hình SCC": "EM",
-      "Loại Hình BP": "Đồng Sơn",
-      "Tên KH": "Anh A",
-      "Trạng Thái Xưởng": "02 Chờ Tiếp Nhận",
-      "Trạng Thái Hẹn": "",
-      "TĐ Gặp Lễ Tân": "2023-05-18 14:15",
-      "id": "72A12345",
-      "Ngày Đăng Kiểm": "2023-05-31",
-      "Bắt Đầu SCC": "2023-05-19 07:20",
-      "Kết Thúc SCC": "2023-05-19 15:25",
-      "Khoang SC": "EM 04",
-      "Ngày Giờ Giao Xe": "2023-05-19 21:10",
-      "Nội Dung Hẹn": "",
-      "Ghi Chú": "",
-      "Kiểu Xe": "",
-      "Ngày Sinh Nhật": "",
-      "Rửa Xe": "Không Rửa",
-      "Khách Đợi": "Không Rửa"
-    },
-    {
-      "Biển Số Xe": "72A98966",
-      "Cố Vấn": "Mẫn",
-      "Số Thẻ": "9",
-      "Loại Hình SCC": "EM",
-      "Loại Hình BP": "",
-      "Tên KH": "A Trực",
-      "Trạng Thái Xưởng": "02 Chờ Tiếp Nhận",
-      "Trạng Thái Hẹn": "",
-      "TĐ Gặp Lễ Tân": "2023-05-19 09:56",
-      "id": "72A98966",
-      "Bắt Đầu SCC": "2023-05-19 10:55",
-      "Kết Thúc SCC": "2023-05-19 14:25",
-      "Khoang SC": "EM 02",
-      "Kiểu Xe": "",
-      "Ngày Giờ Giao Xe": "2023-05-19 21:00",
-      "Ghi Chú": ""
-    },
-    {
-      "Biển Số Xe": "72A98891",
-      "Cố Vấn": "Tâm",
-      "Loại Hình Hẹn": [
-        "Bảo Dưỡng",
-        "Đồng Sơn"
-      ],
-      "Tên KH": "123",
-      "id": "72A98891",
-      "Ngày Hẹn": "2023-07-03 09:00",
-      "Số ĐT": "12",
-      "Khu Vực": "Bà Rịa",
-      "Nhân Viên Hẹn": "Võ Chính Trực",
-      "Nội Dung Hẹn": "123",
-      "Ưu tiên": [],
-      "Trạng Thái": "Chờ Tiếp Nhận",
-      "Loại Hình": [
-        "Bảo Dưỡng",
-        "Đồng Sơn"
-      ],
-      "Số Thẻ": "13",
-      "TĐ Gặp Lễ Tân": "2023-07-03 08:06",
-      "GJ": [
-        {
-          "Biển Số Xe": "72A98891",
-          "Cố Vấn": "Tâm",
-          "Loại Hình Hẹn": [
-            "Bảo Dưỡng",
-            "Đồng Sơn"
-          ],
-          "Tên KH": "123",
-          "id": "72A98891",
-          "Ngày Hẹn": "2023-07-03 09:00",
-          "Số ĐT": "12",
-          "Khu Vực": "Bà Rịa",
-          "Nhân Viên Hẹn": "Võ Chính Trực",
-          "Nội Dung Hẹn": "123",
-          "Ưu tiên": [],
-          "Trạng Thái": "Chờ Tiếp Nhận",
-          "Loại Hình": [
-            "Bảo Dưỡng",
-            "Đồng Sơn"
-          ],
-          "Số Thẻ": "13",
-          "TĐ Gặp Lễ Tân": "2023-07-03 08:06",
-          "GJ": [
-            {
-              "TrangThai": "ChoSC",
-              "content": "72A98891",
-              "start": "2023-07-03 10:43",
-              "end": "2023-07-03 11:42",
-              "group": "EM 04",
-              "id": "e7bcbfad-835f-45a7-96d5-f267b65b6142"
-            }
-          ]
-        },
-        {
-          "TrangThai": "ChoSC",
-          "content": "72A98891",
-          "start": "2023-07-03 10:33",
-          "end": "2023-07-03 11:32",
-          "group": "EM 03"
-        }
-      ]
-    }
+    
   ],
   "XeDaGiao": [],
-  "Login": [
-    {
-      "id": "c79HmHpZdA3K8llDAALB",
-      "fullname": "Võ Chính Trực",
-      "job": "manager",
-      "name": "Trực",
-      "user": "Boygl34",
-      "password": "Khongbiet"
-    },
-    {
-      "id": "FzKQIwk318-qofHSAABj",
-      "fullname": "Võ Chính Trực",
-      "job": "manager",
-      "name": "Trực",
-      "user": "Boygl34",
-      "password": "Khongbiet"
-    }
-  ],
+  "Login": [],
   "User": [
     {
       "id": 1,
@@ -152,17 +30,6 @@
       "Kiểu Xe": "",
       "Ngày Sinh Nhật": ""
     },
-    {
-      "id": "72A12346",
-      "Ngày Đăng Kiểm": "20/12/2023",
-      "Ngày Sinh Nhật": "18/05/2023"
-    },
-    {
-      "Tên KH": "A Trực",
-      "Kiểu Xe": "",
-      "Ngày Đăng Kiểm": "2023-05-19",
-      "Ngày Sinh Nhật": "",
-      "id": "72A98966"
-    }
+    
   ]
 }
