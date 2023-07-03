@@ -40,12 +40,85 @@
       "Kiểu Xe": "",
       "Ngày Giờ Giao Xe": "2023-05-19 21:00",
       "Ghi Chú": ""
+    },
+    {
+      "Biển Số Xe": "72A98891",
+      "Cố Vấn": "Tâm",
+      "Loại Hình Hẹn": [
+        "Bảo Dưỡng",
+        "Đồng Sơn"
+      ],
+      "Tên KH": "123",
+      "id": "72A98891",
+      "Ngày Hẹn": "2023-07-03 09:00",
+      "Số ĐT": "12",
+      "Khu Vực": "Bà Rịa",
+      "Nhân Viên Hẹn": "Võ Chính Trực",
+      "Nội Dung Hẹn": "123",
+      "Ưu tiên": [],
+      "Trạng Thái": "Chờ Tiếp Nhận",
+      "Loại Hình": [
+        "Bảo Dưỡng",
+        "Đồng Sơn"
+      ],
+      "Số Thẻ": "13",
+      "TĐ Gặp Lễ Tân": "2023-07-03 08:06",
+      "GJ": [
+        {
+          "Biển Số Xe": "72A98891",
+          "Cố Vấn": "Tâm",
+          "Loại Hình Hẹn": [
+            "Bảo Dưỡng",
+            "Đồng Sơn"
+          ],
+          "Tên KH": "123",
+          "id": "72A98891",
+          "Ngày Hẹn": "2023-07-03 09:00",
+          "Số ĐT": "12",
+          "Khu Vực": "Bà Rịa",
+          "Nhân Viên Hẹn": "Võ Chính Trực",
+          "Nội Dung Hẹn": "123",
+          "Ưu tiên": [],
+          "Trạng Thái": "Chờ Tiếp Nhận",
+          "Loại Hình": [
+            "Bảo Dưỡng",
+            "Đồng Sơn"
+          ],
+          "Số Thẻ": "13",
+          "TĐ Gặp Lễ Tân": "2023-07-03 08:06",
+          "GJ": [
+            {
+              "TrangThai": "ChoSC",
+              "content": "72A98891",
+              "start": "2023-07-03 10:43",
+              "end": "2023-07-03 11:42",
+              "group": "EM 04",
+              "id": "e7bcbfad-835f-45a7-96d5-f267b65b6142"
+            }
+          ]
+        },
+        {
+          "TrangThai": "ChoSC",
+          "content": "72A98891",
+          "start": "2023-07-03 10:33",
+          "end": "2023-07-03 11:32",
+          "group": "EM 03"
+        }
+      ]
     }
   ],
   "XeDaGiao": [],
   "Login": [
     {
       "id": "c79HmHpZdA3K8llDAALB",
+      "fullname": "Võ Chính Trực",
+      "job": "manager",
+      "name": "Trực",
+      "user": "Boygl34",
+      "password": "Khongbiet"
+    },
+    {
+      "id": "FzKQIwk318-qofHSAABj",
       "fullname": "Võ Chính Trực",
       "job": "manager",
       "name": "Trực",
