@@ -1,7 +1,5 @@
 {
-  "XeTrongXuong": [
-    
-  ],
+  "XeTrongXuong": [],
   "XeDaGiao": [],
   "Login": [],
   "User": [
@@ -29,7 +27,6 @@
       "Tên KH": "Anh A",
       "Kiểu Xe": "",
       "Ngày Sinh Nhật": ""
-    },
-    
+    }
   ]
 }

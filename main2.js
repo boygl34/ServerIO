@@ -6,14 +6,19 @@ const moment = require('moment')
 const io = require('socket.io')(server, {
     cors: { origin: '*' }
 })
+const Tesseract = require('tesseract.js');
+const multer = require('multer');
 const low = require('lowdb')
 const FileSync = require('lowdb/adapters/FileSync')
 const { log } = require('console')
 const port = 3000
 const adapter = new FileSync('db.json')
 const db = low(adapter)
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
+const cors = require('cors')
 db.defaults({ Login: [], User: [], XeTrongXuong: [], XeDaGiao: [], ThongTinXe: [] }).write();
-
+app.use(cors())
 io.on('connection', async (socket) => {
     console.log('Client connected', socket.id);
     socket.on('login', async (data) => {
@@ -122,7 +127,19 @@ io.on('connection', async (socket) => {
 
 
 });//io
-
+app.post('/ocr', upload.single('image'), async (req, res) => {
+    try {
+      const image = req.file.buffer;
+      const result = await Tesseract.recognize(image, 'eng', {
+        tessedit_char_whitelist: '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+      });
+      const licensePlate = result.data.text.trim();
+      res.json({ licensePlate });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
 server.listen(port, () => {
     console.log(`Server listening on port ${port}`);
 
