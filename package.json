@@ -1,8 +1,11 @@
 {
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon main.js",
-    "start": "node main2.js"
+    "dev": "nodemon main2.js",
+    "start": "node main.js"
+  },
+  "engines": {
+    "node": "16.x"
   },
   "dependencies": {
     "express": "^4.18.2",
