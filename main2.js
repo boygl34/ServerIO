@@ -6,7 +6,7 @@ const moment = require('moment')
 const io = require('socket.io')(server, {
     cors: { origin: '*' }
 })
-const Tesseract = require('tesseract.js');
+const Tesseract = require('node-tesseract-ocr');
 const multer = require('multer');
 const low = require('lowdb')
 const FileSync = require('lowdb/adapters/FileSync')
@@ -129,17 +129,25 @@ io.on('connection', async (socket) => {
 });//io
 app.post('/ocr', upload.single('image'), async (req, res) => {
     try {
-      const image = req.file.buffer;
-      const result = await Tesseract.recognize(image, 'eng', {
-        tessedit_char_whitelist: '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-      });
-      const licensePlate = result.data.text.trim();
-      res.json({ licensePlate });
+        const config = {
+            lang: 'eng', // Ngôn ngữ được sử dụng cho OCR
+            oem: 1, // Engin mode, 1 là LSTM
+            psm: 1,// Page segmentation mode, 3 là 
+            tessedit_char_whitelist: '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+        };
+        const imageBuffer = req.file.buffer;
+      const result = await Tesseract.recognize(imageBuffer, config);
+     
+        
+        console.log({result})
+      res.json({ result });
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Internal server error' });
     }
-  });
+});
+  
+
 server.listen(port, () => {
     console.log(`Server listening on port ${port}`);
 
